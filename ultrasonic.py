@@ -6,7 +6,7 @@ GPIO.setwarnings(False)                    #هنا هنعمل استيراد ل�
 TRIG = 23                                  # TRIG ب ال pin 23 هنربط ال
 ECHO = 24                                  #ُ ECHO ب ال pin 24 هنربط ال
 buzzer = 11                                # BUZZER ب ال pin 11 هنربط ال
-button = 17                             #هنربط ال button ب البين
+button = 17                                #هنربط ال button ب البين
 print "Distance measurement in progress"
 
 GPIO.setup(TRIG,GPIO.OUT)                  #هنعامل التريج ك خرج
