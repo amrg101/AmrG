@@ -96,4 +96,4 @@ else:
 	GPIO.output(Led1_pin , 0)
 	GPIO.output(led2_pin,0)
 	
-	
+GPIO.cleanup()	
