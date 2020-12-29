@@ -1,19 +1,26 @@
 import RPi.GPIO as GPIO
+import Adafruit_DHT
 import time  
 GPIO.setmode(GPIO.BCM)                     #حولنا استخدمانا لارقام ال bcm
 GPIO.setwarnings(False)                    #هنا هنعمل استيراد للمكتبات ال هنستدخمها
 
-TRIG = 23                                  # TRIG ب ال pin 23 هنربط ال
-ECHO = 24                                  #ُ ECHO ب ال pin 24 هنربط ال
+TRIG = 13                                  # TRIG ب ال pin 23 هنربط ال
+ECHO = 15                                  #ُ ECHO ب ال pin 24 هنربط ال
 buzzer = 11                                # BUZZER ب ال pin 11 هنربط ال
-button = 17                                #هنربط ال button ب البين
+button = 12                               #هنربط ال button 
+buzzer_2 = 16   #GPIO23
+button_2 = 18   #GPIO24
+DHT_SENSOR = Adafruit_DHT.DHT11
+DHT_PIN = 4
+
 print "Distance measurement in progress"
 
 GPIO.setup(TRIG,GPIO.OUT)                  #هنعامل التريج ك خرج
 GPIO.setup(ECHO,GPIO.IN)                   #هنعامل ال اكو ك دخل 
 GPIO.setup(buzzer,GPIO.OUT)                #هنعامل البين الخاص بالبازر كخرج 
 GPIO.setup(button,GPIO.IN)                 #هنعامل البين بتاع الزرار كدخل عشان نعرف الاجراء ال هنتعامل معاه 
-
+GPIO.setup(buzzer_2,GPIO.OUT)
+GPIO.setup(button_2 , GPIO.IN)
 while True:
 
   GPIO.output(TRIG, False)                 # هندى قيمة للتريج  LOW(0)
@@ -56,4 +63,20 @@ while True:
   #لو تم الضغط على الزرار هيقفل الانذار
   else:
     print "Out Of Range"                   #لو المسافة مش اقل من متر يطبع الرساله دى
+   #الكود الخاص بسنسور الحراره
+    while True:
+    temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
+    if temperature is not None:
+        print("Temp={0:0.1f}C".format(temperature))
+    else:
+        print("Sensor failure. Check wiring.")
+       time.sleep(3)
 
+     if temperature > 50:
+             GPIO.output(buzzer_2,GPIO.HIGH)
+	 if (GPIO.input(button_2) == True) :
+                    GPIO.output(buzzer_2 , GPIO.LOW)
+     elif  temperature <= 50 : 
+             GPIO.output(buzzer_2,GPIO.LOW)
+     else:
+              print('Failed to get reading. Try again!')
