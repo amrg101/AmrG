@@ -15,7 +15,7 @@ DHT_PIN = 4
 Led1_pin = 8
 Led2_pin = 10
 
-print "Distance measurement in progress"
+print("Distance measurement in progress")
 
 GPIO.setup(TRIG,GPIO.OUT)                  #هنعامل التريج ك خرج
 GPIO.setup(ECHO,GPIO.IN)                   #هنعامل ال اكو ك دخل 
@@ -83,7 +83,7 @@ while True:
      elif  temperature <= 50 : 
              GPIO.output(buzzer_2,GPIO.LOW)
      else:
-              print('Failed to get reading. Try again!')
+              print("Failed to get reading. Try again!")
 if (GPIO.output(buzzer_1,GPIO.HIGH) AND GPIO.output(buzzer_2,GPIO.HIGH)):
 	GPIO.output(Led1_pin , 1)
 	GPIO.output(led2_pin,0)
