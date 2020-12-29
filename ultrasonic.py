@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import Adafruit_DHT
 import time  
-GPIO.setmode(GPIO.BCM)                     #حولنا استخدمانا لارقام ال bcm
+GPIO.setmode(GPIO.BOARD)                     #حولنا استخدمانا لارقام ال bcm
 GPIO.setwarnings(False)                    #هنا هنعمل استيراد للمكتبات ال هنستدخمها
 
 TRIG = 13                                  # TRIG ب ال pin 23 هنربط ال
@@ -12,6 +12,8 @@ buzzer_2 = 16   #GPIO23
 button_2 = 18   #GPIO24
 DHT_SENSOR = Adafruit_DHT.DHT11
 DHT_PIN = 4
+Led1_pin = 8
+Led2_pin = 10
 
 print "Distance measurement in progress"
 
@@ -21,6 +23,8 @@ GPIO.setup(buzzer,GPIO.OUT)                #هنعامل البين الخاص �
 GPIO.setup(button,GPIO.IN)                 #هنعامل البين بتاع الزرار كدخل عشان نعرف الاجراء ال هنتعامل معاه 
 GPIO.setup(buzzer_2,GPIO.OUT)
 GPIO.setup(button_2 , GPIO.IN)
+GPIO.setup(Led1_pin,GPIO.OUT)		#red led
+GPIO.setup(Led2_pin, GPIO.OUT)		#green led
 while True:
 
   GPIO.output(TRIG, False)                 # هندى قيمة للتريج  LOW(0)
@@ -80,3 +84,16 @@ while True:
              GPIO.output(buzzer_2,GPIO.LOW)
      else:
               print('Failed to get reading. Try again!')
+if (GPIO.output(buzzer_1,GPIO.HIGH) AND GPIO.output(buzzer_2,GPIO.HIGH)):
+	GPIO.output(Led1_pin , 1)
+	GPIO.output(led2_pin,0)
+	
+elif(GPIO.output(buzzer_1,GPIO.LOW) AND GPIO.output(buzzer_2,GPIO.LOW)):
+	GPIO.output(Led1_pin , 0)
+	GPIO.output(led2_pin,1)
+	
+else:
+	GPIO.output(Led1_pin , 0)
+	GPIO.output(led2_pin,0)
+	
+	
