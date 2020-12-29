@@ -1,16 +1,18 @@
 import RPi.GPIO as GPIO
 import time  
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BCM)                     #حولنا استخدمانا لارقام ال bcm
 GPIO.setwarnings(False)                    #هنا هنعمل استيراد للمكتبات ال هنستدخمها
 
 TRIG = 23                                  # TRIG ب ال pin 23 هنربط ال
 ECHO = 24                                  #ُ ECHO ب ال pin 24 هنربط ال
-buzzer=25                                  # BUZZER ب ال pin 25 هنربط ال
+buzzer = 11                                # BUZZER ب ال pin 11 هنربط ال
+button = 17                             #هنربط ال button ب البين
 print "Distance measurement in progress"
 
 GPIO.setup(TRIG,GPIO.OUT)                  #هنعامل التريج ك خرج
 GPIO.setup(ECHO,GPIO.IN)                   #هنعامل ال اكو ك دخل 
 GPIO.setup(buzzer,GPIO.OUT)                #هنعامل البين الخاص بالبازر كخرج 
+GPIO.setup(button,GPIO.IN)                 #هنعامل البين بتاع الزرار كدخل عشان نعرف الاجراء ال هنتعامل معاه 
 
 while True:
 
@@ -48,7 +50,10 @@ while True:
   #_نعمل نص سنتى هامش خطأ _اختيارى
     print "Distance:",distance - 0.5,"cm"  #هنطبع المسافة وهنطرح منها هامش الخطأ عشان دقة اكبر
     GPIO.output(buzzer,GPIO.HIGH)          #هنشغل الانذار
-  #ممكن نضيف هنا الاجراء المطلوب تجاه الانذار
+ #ممكن نضيف هنا الاجراء المطلوب تجاه الانذار
+   if (GPIO.input(button)):
+    GPIO.output(buzzer,GPIO.LOW)
+  #لو تم الضغط على الزرار هيقفل الانذار
   else:
     print "Out Of Range"                   #لو المسافة مش اقل من متر يطبع الرساله دى
 
