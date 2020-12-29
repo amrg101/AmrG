@@ -51,8 +51,8 @@ while True:
     print "Distance:",distance - 0.5,"cm"  #هنطبع المسافة وهنطرح منها هامش الخطأ عشان دقة اكبر
     GPIO.output(buzzer,GPIO.HIGH)          #هنشغل الانذار
  #ممكن نضيف هنا الاجراء المطلوب تجاه الانذار
-   if (GPIO.input(button)):
-    GPIO.output(buzzer,GPIO.LOW)
+     if (GPIO.input(button)==True):
+       GPIO.output(buzzer,GPIO.LOW)
   #لو تم الضغط على الزرار هيقفل الانذار
   else:
     print "Out Of Range"                   #لو المسافة مش اقل من متر يطبع الرساله دى
