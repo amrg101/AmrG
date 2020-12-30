@@ -65,21 +65,23 @@ def setupPins():
     GPIO.setup(theft_buzzer,GPIO.OUT)
     GPIO.setup(stopTheftButton,GPIO.IN)
     GPIO.setup(fire_buzzer,GPIO.OUT)
-    GPIO.setup(stopFireButton , GPIO.IN)
+    GPIO.setup(stopFireButton,GPIO.IN)
     GPIO.setup(redLed,GPIO.OUT)
-    GPIO.setup(greenLed, GPIO.OUT)
+    GPIO.setup(greenLed,GPIO.OUT)
 
 setupPins()
-while True:
-    triggerUltraSonic()
-    distance = measureDistance()
-    if distance < 100:
-        GPIO.output(theft_buzzer,1)
-        theftExist = True
-    checkTemp()
-    currentTime = time.time()
-    endTime = currentTime + 2
-    while endTime < time.time():    # waits for 2 seconds and at the same time checks the states
-        check_ButtonStates()        # this couldn't be done if we used time.sleep()
-        check_LedStates()
-GPIO.cleanup()	
+try:
+    while True:
+        triggerUltraSonic()
+        distance = measureDistance()
+        if distance < 100:
+            GPIO.output(theft_buzzer,1)
+            theftExist = True
+        checkTemp()
+        currentTime = time.time()
+        endTime = currentTime + 2
+        while endTime < time.time():    # waits for 2 seconds and at the same time checks the states
+            check_ButtonStates()        # this couldn't be done if we used time.sleep()
+            check_LedStates()
+except:
+    GPIO.cleanup()
