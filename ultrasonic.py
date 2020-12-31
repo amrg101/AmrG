@@ -2,18 +2,18 @@ import RPi.GPIO as GPIO
 import Adafruit_DHT
 import time
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
-theft_buzzer = 11
-stopTheftButton = 12
-fire_buzzer = 13
-stopFireButton = 15
-trig = 16
+theft_buzzer = 23
+stopTheftButton = 24
+fire_buzzer = 12
+stopFireButton = 25
+trig = 15
 echo = 18
 dhtSensor = Adafruit_DHT.DHT11
-dhtPin = 14
-redLed = 31
-greenLed = 29
+dhtPin = 16
+redLed = 19
+greenLed = 26
 theftExist = False
 fireExist = False
 
