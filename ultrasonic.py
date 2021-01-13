@@ -80,7 +80,7 @@ try:
         checkTemp()
         currentTime = time.time()
         endTime = currentTime + 2
-        while endTime < time.time():    # waits for 2 seconds and at the same time checks the states
+        while endTime > time.time():    # waits for 2 seconds and at the same time checks the states
             check_ButtonStates()        # this couldn't be done if we used time.sleep()
             check_LedStates()
 except:
